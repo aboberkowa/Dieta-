@@ -26,12 +26,12 @@ function renderWeek(){
   const days = [...new Set(meals.map(m => m.day))];
   weekGrid.innerHTML = days.map(day => {
     const dayMeals = meals.filter(m => m.day === day).sort((a,b)=>a.slot-b.slot);
-    return `<article class="day-card"><div class="day-title">${day}</div>${dayMeals.map(m => `
+    return `<article class="day-card"><div class="day-title"><span>${day}</span><span class="day-kcal">${dayMeals.reduce((sum,m)=>sum+(m.nutrition?.kcal||0),0)} kcal</span></div>${dayMeals.map(m => `
       <div class="meal-row">
         <span class="meal-code">${m.code}</span>
         <div>
           <div class="meal-name">${m.name}</div>
-          <div class="meal-sub">Posiłek ${m.slot} • ${m.time}</div>
+          <div class="meal-sub">Posiłek ${m.slot} • ${m.time} • ${m.nutrition?.kcal ?? '?'} kcal</div><div class="macro-mini">B ${m.nutrition?.protein ?? '?'} g • W ${m.nutrition?.carbs ?? '?'} g • T ${m.nutrition?.fat ?? '?'} g</div>
         </div>
         <button class="details-btn" data-code="${m.code}">Przepis</button>
       </div>`).join('')}</article>`;
@@ -44,7 +44,7 @@ function renderRecipes(filter=''){
   recipeList.innerHTML = filtered.map(m => `
     <article class="recipe-card">
       <span class="meal-code">${m.code}</span>
-      <div><div class="meal-name">${m.name}</div><div class="meal-sub">${m.day} • ${m.type}</div></div>
+      <div><div class="meal-name">${m.name}</div><div class="meal-sub">${m.day} • ${m.type} • ${m.nutrition?.kcal ?? '?'} kcal</div><div class="macro-mini">B ${m.nutrition?.protein ?? '?'} g • W ${m.nutrition?.carbs ?? '?'} g • T ${m.nutrition?.fat ?? '?'} g</div></div>
       <button class="details-btn" data-code="${m.code}">Otwórz</button>
     </article>`).join('') || '<p class="muted">Brak wyników.</p>';
 }
@@ -55,7 +55,7 @@ function openRecipe(code){
   document.getElementById('dialogTitle').textContent = m.name;
   document.getElementById('dialogMeta').textContent = `${m.day} • Posiłek ${m.slot} • ${m.time}`;
   document.getElementById('dialogBody').innerHTML = `
-    <div class="tagline">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    <div class="nutrition-box"><strong>${m.nutrition?.kcal ?? '?'} kcal</strong><span>Białko ${m.nutrition?.protein ?? '?'} g</span><span>Węglowodany ${m.nutrition?.carbs ?? '?'} g</span><span>Tłuszcz ${m.nutrition?.fat ?? '?'} g</span></div><div class="tagline">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
     <h4>Składniki</h4>
     <ul>${m.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul>
     <h4>Przygotowanie</h4>
