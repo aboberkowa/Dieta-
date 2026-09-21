@@ -1,0 +1,14 @@
+{
+  "name": "Moje Menu",
+  "short_name": "Moje Menu",
+  "description": "Tygodniowe menu, przepisy i lista zakupów",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f6f1",
+  "theme_color": "#6b7f5b",
+  "lang": "pl",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

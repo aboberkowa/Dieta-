@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#6b7f5b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Moje Menu" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Moje Menu</title>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Moje Menu</h1>
+      <p>7 dni • 3 posiłki • bez marnowania</p>
+    </div>
+    <button id="resetBtn" class="ghost-btn" aria-label="Przywróć dane">Reset</button>
+  </header>
+
+  <main class="app-main">
+    <section id="view-week" class="view active" aria-labelledby="tab-week">
+      <div class="section-head">
+        <h2>Ten tydzień</h2>
+        <span class="pill">A–U</span>
+      </div>
+      <div id="weekGrid" class="week-grid"></div>
+    </section>
+
+    <section id="view-recipes" class="view" aria-labelledby="tab-recipes">
+      <div class="section-head">
+        <h2>Przepisy</h2>
+        <input id="recipeSearch" class="search" type="search" placeholder="Szukaj po nazwie lub literze" />
+      </div>
+      <div id="recipeList" class="recipe-list"></div>
+    </section>
+
+    <section id="view-shopping" class="view" aria-labelledby="tab-shopping">
+      <div class="section-head">
+        <h2>Lista zakupów</h2>
+        <button id="clearChecksBtn" class="ghost-btn">Odznacz wszystko</button>
+      </div>
+      <div id="shoppingList" class="shopping-list"></div>
+    </section>
+
+    <section id="view-useup" class="view" aria-labelledby="tab-useup">
+      <div class="section-head">
+        <h2>Zużyj najpierw</h2>
+        <span class="pill">rotacja</span>
+      </div>
+      <div id="useUpList" class="useup-list"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Nawigacja">
+    <button id="tab-week" data-view="week" class="tab active">Tydzień</button>
+    <button id="tab-recipes" data-view="recipes" class="tab">Przepisy</button>
+    <button id="tab-shopping" data-view="shopping" class="tab">Zakupy</button>
+    <button id="tab-useup" data-view="useup" class="tab">Zużyj</button>
+  </nav>
+
+  <dialog id="recipeDialog" class="recipe-dialog">
+    <form method="dialog" class="dialog-card">
+      <div class="dialog-top">
+        <div>
+          <span id="dialogCode" class="meal-code"></span>
+          <h3 id="dialogTitle"></h3>
+          <p id="dialogMeta" class="muted"></p>
+        </div>
+        <button class="close-btn" value="cancel" aria-label="Zamknij">×</button>
+      </div>
+      <div id="dialogBody"></div>
+    </form>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
